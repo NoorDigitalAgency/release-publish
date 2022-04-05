@@ -72,6 +72,8 @@ async function run(): Promise<void> {
 
     core.debug(`Prerelease: ${prerelease}`);
 
+    core.debug(`Reference: ${reference}`);
+
     const releaseNotes = (await octokit.rest.repos.generateReleaseNotes({ owner: context.repo.owner, repo: context.repo.repo, tag_name: version, target_commitish: reference, previous_tag_name: previousVersion })).data;
 
     core.startGroup('Release notes');

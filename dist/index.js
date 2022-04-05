@@ -82,6 +82,7 @@ function run() {
             core.debug(`Branch: '${branch}'`);
             const prerelease = branch !== 'main';
             core.debug(`Prerelease: ${prerelease}`);
+            core.debug(`Reference: ${reference}`);
             const releaseNotes = (yield octokit.rest.repos.generateReleaseNotes({ owner: context.repo.owner, repo: context.repo.repo, tag_name: version, target_commitish: reference, previous_tag_name: previousVersion })).data;
             core.startGroup('Release notes');
             core.debug(`${(0, util_1.inspect)(releaseNotes, { depth: 5 })}`);
