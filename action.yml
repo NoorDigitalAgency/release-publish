@@ -5,6 +5,9 @@ inputs:
   token:
     required: true
     description: Token
+  stage:
+    required: true
+    description: Target stage
   artifact_name:
     required: false
     description: Dawn action artifact name
