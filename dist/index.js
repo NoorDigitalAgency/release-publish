@@ -59,15 +59,13 @@ function run() {
             core.startGroup('GitHub Context');
             core.debug((0, util_1.inspect)(context, { depth: 5 }));
             core.endGroup();
-            const artifacts = (yield octokit.rest.actions.listWorkflowRunArtifacts({ owner: context.repo.owner, repo: context.repo.repo, run_id: context.runId })).data.artifacts;
-            core.startGroup('Artifacts');
-            core.debug(`${(0, util_1.inspect)(artifacts, { depth: 5 })}`);
-            core.endGroup();
-            if (artifacts.every(artifact => artifact.name !== artifactName)) {
-                throw new Error(`Artifact '${artifactName}' doesn't exist. Make sure the 'dawn' action is run before the 'dusk' action and they are pointing to the same artifact name.`);
-            }
             const client = (0, artifact_1.create)();
-            yield client.downloadArtifact(artifactName);
+            try {
+                yield client.downloadArtifact(artifactName);
+            }
+            catch (error) {
+                throw new Error(`Failed to download artifact '${artifactName}'. Make sure the 'dawn' action is already run with the same artifact name.`);
+            }
             const file = `${artifactName}.json`;
             if (!(0, fs_1.existsSync)(file)) {
                 throw new Error(`Artifact file '${file}' doesn't exist.`);

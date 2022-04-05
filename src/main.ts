@@ -31,22 +31,16 @@ async function run(): Promise<void> {
 
     core.endGroup();
 
-    const artifacts = (await octokit.rest.actions.listWorkflowRunArtifacts({ owner: context.repo.owner, repo: context.repo.repo, run_id: context.runId })).data.artifacts;
-
-    core.startGroup('Artifacts');
-
-    core.debug(`${stringify(artifacts, { depth: 5 })}`);
-
-    core.endGroup();
-
-    if (artifacts.every(artifact => artifact.name !== artifactName)) {
-
-      throw new Error(`Artifact '${artifactName}' doesn't exist. Make sure the 'dawn' action is run before the 'dusk' action and they are pointing to the same artifact name.`);
-    }
-
     const client = create();
 
-    await client.downloadArtifact(artifactName);
+    try {
+
+      await client.downloadArtifact(artifactName);
+
+    } catch (error) {
+
+      throw new Error(`Failed to download artifact '${artifactName}'. Make sure the 'dawn' action is already run with the same artifact name.`);
+    }
 
     const file = `${artifactName}.json`;
 
