@@ -1,8 +1,8 @@
 {
-  "name": "dusk",
+  "name": "release-publish",
   "version": "1.0.0",
   "private": true,
-  "description": "Dusk, the release creation action",
+  "description": "Release Publish Action",
   "main": "lib/main.js",
   "scripts": {
     "build": "tsc",
@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/NoorDigitalAgency/dusk.git"
+    "url": "git+https://github.com/NoorDigitalAgency/release-publish.git"
   },
   "author": "Rojan Gh.",
   "license": "MIT",
