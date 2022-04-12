@@ -1,5 +1,5 @@
-name: 'Dusk'
-description: 'Dusk, the release creation action'
+name: 'Release Publish'
+description: 'Release Publish Action'
 author: 'Rojan Gh.'
 inputs:
   token:
@@ -10,8 +10,8 @@ inputs:
     description: Target stage
   artifact_name:
     required: false
-    description: Dawn action artifact name
-    default: dawn-outputs
+    description: Release Startup Action artifact name
+    default: release-startup-outputs
 runs:
   using: 'node16'
   main: 'dist/index.js'
