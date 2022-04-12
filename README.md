@@ -1,4 +1,4 @@
-# Dusk, the release creation action
+# Release Publish Action
 
 Used for:
 - Creates a new release
@@ -7,10 +7,10 @@ Used for:
 Usage:
 ```yaml
     steps:
-      - uses: NoorDigitalAgency/dusk@main
-        name: Dusk
+      - uses: NoorDigitalAgency/release-publish@main
+        name: Release Publish
         with:
           stage: 'alpha' # What stage is the release targeting (alpha, beta and production)
           token: ${{ github.token }} # GitHub token
-          artifact_name: dawn-outputs # Artifact name used by dawn
+          artifact_name: release-startup-outputs # Artifact name used by release-startup
 ```
