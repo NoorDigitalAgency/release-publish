@@ -3,8 +3,9 @@ description: 'Release Publish Action'
 author: 'Rojan Gh.'
 inputs:
   token:
-    required: true
     description: Token
+    default: ${{ github.token }}
+    required: false
   stage:
     required: true
     description: Target stage
