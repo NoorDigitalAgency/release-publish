@@ -82,7 +82,9 @@ async function run(): Promise<void> {
 
     core.endGroup();
 
-    await octokit.rest.repos.createRelease({ owner: context.repo.owner, repo: context.repo.repo, tag_name: version, target_commitish: reference, prerelease, generate_release_notes: false, ...releaseNotes });
+    const finalreleaseNotes = { name: releaseNotes.name, body: `${releaseNotes.body}\n\n**[Released](${context.payload.repository?.html_url}/actions/runs/${context.runId}) by**: [@${context.actor}](${context.payload.sender?.html_url})` };
+
+    await octokit.rest.repos.createRelease({ owner: context.repo.owner, repo: context.repo.repo, tag_name: version, target_commitish: reference, prerelease, generate_release_notes: false, ...finalreleaseNotes });
 
   } catch (error) {
 

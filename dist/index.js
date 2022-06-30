@@ -46,6 +46,7 @@ const io_1 = __nccwpck_require__(7436);
 const util_1 = __nccwpck_require__(3837);
 const fs_1 = __nccwpck_require__(7147);
 function run() {
+    var _a, _b;
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const token = core.getInput('token', { required: true });
@@ -87,7 +88,8 @@ function run() {
             core.startGroup('Release notes');
             core.debug(`${(0, util_1.inspect)(releaseNotes, { depth: 5 })}`);
             core.endGroup();
-            yield octokit.rest.repos.createRelease(Object.assign({ owner: context.repo.owner, repo: context.repo.repo, tag_name: version, target_commitish: reference, prerelease, generate_release_notes: false }, releaseNotes));
+            const finalreleaseNotes = { name: releaseNotes.name, body: `${releaseNotes.body}\n\n**[Released](${(_a = context.payload.repository) === null || _a === void 0 ? void 0 : _a.html_url}/actions/runs/${context.runId}) by**: [@${context.actor}](${(_b = context.payload.sender) === null || _b === void 0 ? void 0 : _b.html_url})` };
+            yield octokit.rest.repos.createRelease(Object.assign({ owner: context.repo.owner, repo: context.repo.repo, tag_name: version, target_commitish: reference, prerelease, generate_release_notes: false }, finalreleaseNotes));
         }
         catch (error) {
             core.startGroup('Error');
