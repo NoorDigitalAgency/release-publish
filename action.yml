@@ -13,5 +13,5 @@ inputs:
     description: Release Startup Action artifact name
     default: release-startup-outputs
 runs:
-  using: 'node16'
+  using: 'node20'
   main: 'dist/index.js'
