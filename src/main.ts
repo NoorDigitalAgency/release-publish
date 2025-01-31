@@ -1,6 +1,6 @@
 import * as core from '@actions/core';
 import * as github from '@actions/github';
-import { create } from '@actions/artifact';
+import { DefaultArtifactClient } from '@actions/artifact';
 import { rmRF } from '@actions/io';
 import { inspect as stringify } from 'util';
 import { readFileSync, existsSync } from 'fs';
@@ -31,11 +31,12 @@ async function run(): Promise<void> {
 
     core.endGroup();
 
-    const client = create();
+    const client = new DefaultArtifactClient();
 
     try {
 
-      await client.downloadArtifact(artifactName);
+      var artifactId = (await client.getArtifact(artifactName)).artifact.id;
+      await client.downloadArtifact(artifactId);
 
     } catch (error) {
 
